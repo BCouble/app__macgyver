@@ -1,23 +1,17 @@
-"""Constants Game MacGyver"""
+# maze file
+c_maze = "assets/map/maze.csv"
 
-# window parameter
+# structure area
+nb_sprite = 15
+size_sprite = 30
+x_windows = nb_sprite * size_sprite
+y_windows = nb_sprite * size_sprite
+c_window = (x_windows, y_windows)
 
-# sprite_number = 15
-# sprite_size = 30px
-# window_size = sprite_number * sprite_size
-
-# image list
-
-"""
-home
-background, path, road
-wall
-starting line
-finishing line
-object 0
-object 1
-object 2
-object 3
-MacGyver
-Guardian
-"""
+# images
+c_mac = "assets/image/MacGyver.png"
+c_texture = "assets/image/floor-tiles-20x20.png"
+# wall = wall.subsurface(0, 0, 20, 20)
+# path = path.subsurface(20, 20, 20, 20)
+# start = start.subsurface(0, 100, 20, 20)
+# win = win.subsurface(var_x, var_y, 20, 20)
