@@ -13,22 +13,23 @@ from pygame.locals import *
 def main():
 	""" running the game """
 	pygame.init()
-	
-
+	# Init windows
+	window = pygame.display.set_mode(AREA)
+	# Creation of Maze
+	maze = Maze()
+	maze.creation_area()
+	maze.generate_area(window)
+	# Items
+	loot = item()
+	loot.create_item(maze)
+	loot.generate_item(window)
+	# Creation of MacGyver
+	hero = Macgyver(INIT_MAC_X, INIT_MAC_Y, MAC, maze)
+	# Update image
+	hero.image_hero(MAC)
+	#window.blit(hero.mac, (hero.sprite_x, hero.sprite_y))
 	game = True
-
 	while game:
-                # Init windows
-		window = pygame.display.set_mode(AREA)
-		# Creation of Maze
-		maze = Maze()
-		maze.creation_area()
-		maze.generate_area(window)
-		# Creation of MacGyver
-		hero = Macgyver(c_macx, c_macy, MAC, maze)
-		# Update image
-		hero.image_hero(MAC)
-		window.blit(hero.mac, (hero.sprite_x, hero.sprite_y))
 		# appel des attributs
 		#window.blit(hero.mac, (hero.x, hero.y))
 		#pygame.display.flip()
@@ -46,9 +47,11 @@ def main():
 					hero.position('right')
 		#hero.position()
 		#position_mac = hero.get_rect() 
-		#window.blit(hero.position, (hero.sprite_x, hero.sprite_y))
+		maze.generate_area(window)
+		# update loot avec invmac
+		loot.generate_item(window)
+		window.blit(hero.mac, (hero.x, hero.y))
 		pygame.display.flip()
     
 if __name__ == "__main__":
     main()
-

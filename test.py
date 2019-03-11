@@ -69,17 +69,6 @@ while gamestatu:
             # Creation of MacGyver
             Mac = Characters(c_xmac, c_ymac, c_mac, Level)
 
-            # Creation of the Guard
-            Keeper = Characters(c_xkeep, c_ykeep, c_keeper, Level)
-
-            # Creation of items and display it
-            Needle = Items("N", c_needle, Level)
-            Needle.display(window)
-            Ether = Items("E", c_ether, Level)
-            Ether.display(window)
-            Tube = Items("T", c_tube, Level)
-            Tube.display(window)
-
     # Game loop
     while continue_game:
         m_music.play()
@@ -99,62 +88,6 @@ while gamestatu:
                     Mac.move('down')
                 if event.key == K_RIGHT:
                     Mac.move('right')
-
-        # Items gestion
-        if Level.map[Mac.case_y][Mac.case_x] == Needle.id:
-            Needle.damage()
-            Mac.getitem()
-            if Mac.items >= 3:
-                m_music.stop()
-                m_zelda.play()
-        if Level.map[Mac.case_y][Mac.case_x] == Ether.id:
-            Ether.damage()
-            Mac.getitem()
-            if Mac.items >= 3:
-                m_music.stop()
-                m_zelda.play()
-        if Level.map[Mac.case_y][Mac.case_x] == Tube.id:
-            Tube.damage()
-            Mac.getitem()
-            if Mac.items >= 3:
-                m_zelda.play()
-
-        # Meet the guard
-        if Level.map[Mac.case_y][Mac.case_x] == 'K':
-            if Mac.items >= 3:
-                Keeper.damage()
-                Level.map[Mac.case_y][Mac.case_x] = '0'
-
-            # LOSE
-            else:
-                lose = 1
-                m_music.stop()
-                m_lose.play()
-                while lose:
-                    pygame.time.Clock().tick(30)
-                    window.blit(loses, c_pdied)
-                    for event in pygame.event.get():
-                        if event.type == KEYDOWN and event.key == K_ESCAPE:
-                            lose = 0
-                            continue_game = 0
-                            m_lose.stop()
-                            m_mac.play()
-                    pygame.display.flip()
-        # WIN
-        if Level.map[Mac.case_y][Mac.case_x] == 'A' and Mac.items >= 3:
-            win = 1
-            m_music.stop()
-            m_win.play()
-            while win:
-                pygame.time.Clock().tick(30)
-                window.blit(wins, c_pwin)
-                for event in pygame.event.get():
-                    if event.type == KEYDOWN and event.key == K_ESCAPE:
-                        win = 0
-                        continue_game = 0
-                        m_win.stop()
-                        m_mac.play()
-                pygame.display.flip()
 
         # Rebuild
         if continue_game:

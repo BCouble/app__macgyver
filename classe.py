@@ -1,5 +1,6 @@
 
 import os
+import random
 import csv
 import pygame
 from constant import *
@@ -45,11 +46,6 @@ class Maze:
                 num_sprite += 1
             num_line += 1
 
-class Image:
-    """ Ajustement des images """
-    def __init__(self):
-        pass
-
 class Macgyver:
     """ Class Hero """
     def __init__(self, spx, spy, mac, matrice):
@@ -61,6 +57,7 @@ class Macgyver:
         self.x = self.sprite_x * SIZE_SPRITE
         self.y = self.sprite_y * SIZE_SPRITE
         self.mac = MAC_G
+        # This matrice is the maze
         self.matrice = matrice
         #self.Maze = Maze
 
@@ -73,32 +70,120 @@ class Macgyver:
     def position(self, compass):
         """ Method to move the hero """
         if compass == 'down':
-            #if self.y < SIZE_SPRITE:
-                # + 1 sur l'axe y
-            self.sprite_y += 1
-            self.y = self.sprite_y * SIZE_SPRITE
-            print("down")
-            print(self.sprite_y)
-            print(self.y)
+            if self.sprite_y < NB_SPRITE - 1:
+                #letter = self.matrice.area[self.sprite_y+1][self.sprite_x]
+                if self.matrice.area[self.sprite_y+1][self.sprite_x] != "M":
+                    # + 1 sur l'axe y
+                    self.sprite_y += 1
+                    self.y = self.sprite_y * SIZE_SPRITE
         if compass == 'up':
             # if the value of the y-axis is greater than the minimum y-axis value of the labyrinth
-            #if self.y > 0:
-                # - 1 sur l'axe y 
-            self.sprite_y -= 1
-                # On recalcule l'emplacement graphique par rapport à la taille d'une sprite
-            self.y = self.sprite_y * SIZE_SPRITE
-            print("up")
-            print(self.sprite_y)
-            print(self.y)
+            if self.y > 0:
+                if self.matrice.area[self.sprite_y-1][self.sprite_x] != "M":
+                    # - 1 sur l'axe y 
+                    self.sprite_y -= 1
+                    # On recalcule l'emplacement graphique par rapport à la taille d'une sprite
+                    self.y = self.sprite_y * SIZE_SPRITE
         if compass == 'left':
-            self.sprite_x -= 1
-            self.x = self.sprite_x * SIZE_SPRITE
-            print("left")
-            print(self.x)
-            print(self.sprite_x)
+            if self.x > 0:
+                if self.matrice.area[self.sprite_y][self.sprite_x-1] != "M":
+                    self.sprite_x -= 1
+                    self.x = self.sprite_x * SIZE_SPRITE
         if compass == 'right':
-            self.sprite_x += 1
-            self.x = self.sprite_x * SIZE_SPRITE
-            print("right")
-            print(self.x)
-            print(self.sprite_x)
+            if self.sprite_x < NB_SPRITE - 1:
+                if self.matrice.area[self.sprite_y][self.sprite_x+1] != "M":
+                    self.sprite_x += 1
+                    self.x = self.sprite_x * SIZE_SPRITE
+
+class item:
+    """ create list of item """
+    def __init__(self):
+        self.item = ITEM
+        self.obj = []
+
+    def create_item(self, matrice):
+        self.matrice = matrice
+        # create position of items
+        item = []
+        exist_x = []
+        for opu in self.item:
+            #if sprite_x in exist_x == False:
+                #exist_x.append(sprite_x)
+            sprite_x = random.randint(0, 14)
+            sprite_y = random.randint(0, 14)
+            # if maze != #:
+            while self.matrice.area[sprite_y][sprite_x] != "#":
+                sprite_x = random.randint(0, 14)
+                sprite_y = random.randint(0, 14)
+            opu.append(sprite_x)
+            opu.append(sprite_y)
+            item.append(opu)
+        # check position different
+        """for opu in item:
+            if item[i][2] and item[i][3] == item[n][2] and item[n][3]:
+                if item[i][2] and item[i][3] == item[nu][2] and item[nu][3]:
+                    sprite_x = random.randint(0, 14)
+                    sprite_y = random.randint(0, 14)"""
+        print(item)
+        self.obj = item
+
+    def generate_item(self, window):
+        num_line = 0
+        for line in self.obj:
+            x = self.obj[num_line][2] * SIZE_SPRITE
+            y = self.obj[num_line][3] * SIZE_SPRITE
+            # layer alpha
+            if num_line == 0:# NEEDLE
+                img = pygame.image.load(self.obj[num_line][0]).convert_alpha()
+                img = pygame.transform.scale(img, (SIZE_SPRITE, SIZE_SPRITE))
+            if num_line == 1:# ETHER
+                img = pygame.image.load(self.obj[num_line][0])
+                img = pygame.transform.scale(img, (SIZE_SPRITE, SIZE_SPRITE))
+                img.set_colorkey(BLACK)
+            if num_line == 2:# PIPE
+                img = pygame.image.load(self.obj[num_line][0])
+                img.set_colorkey(WHITE)
+                img = pygame.transform.scale(img, (SIZE_SPRITE, SIZE_SPRITE))
+            window.blit(img, (x, y))
+            num_line += 1
+
+class interaction_sprite():
+    """ Gestion des mouvements and objets """
+    def __init__(self):
+        pass
+
+    def find_gardian(self):
+        # maze letter G
+        # if mac à la serynge il win 
+        # else il loose
+        pass
+
+    def loot_item(self):
+        # Item for 3 loot
+        # tresor is serynge
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
