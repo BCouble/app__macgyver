@@ -1,18 +1,21 @@
-
-import pygame
-
 # maze file
 MAZE = "assets/map/maze.csv"
 
-# structure area
-NB_SPRITE = 15
+# structure area window
+NB_SPRITE_L = 16
+NB_SP_H = 15
 SIZE_SPRITE = 30
-XY_WINDOW = NB_SPRITE * SIZE_SPRITE
-AREA = (XY_WINDOW, XY_WINDOW)
+X_WINDOW = NB_SPRITE_L * SIZE_SPRITE
+Y_WINDOW = NB_SP_H * SIZE_SPRITE
+AREA = (X_WINDOW, Y_WINDOW)
 
-# initialyze hero
+# init position hero
 INIT_MAC_X = 7
 INIT_MAC_Y = 0
+
+# init guard
+G_XY = 14
+POS_GUARD = G_XY * SIZE_SPRITE
 
 # images
 MAC = "assets/image/MacGyver.png"
@@ -21,15 +24,18 @@ NEEDLE = "assets/image/aiguille.png"
 PIPE = "assets/image/tube_plastique.png"
 SYRINGE = "assets/image/seringue.png"
 TEXTURE = "assets/image/floor-tiles-20x20.png"
+GUARDIAN = "assets/image/Gardien.png"
+START = "assets/image/MacGyver_home_master.jpg"
+WINNER = "assets/image/winner.jpg"
+LOOSER = "assets/image/looser.jpg"
 
-# Object
+# items
 ITEM = [
 	[NEEDLE, 1],
 	[ETHER, 1],
 	[PIPE, 1],
 ]
-# [SYRINGE, 2]
 
-# COLOR
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+# inventory
+OBJ_X_INVENTORY = NB_SP_H * SIZE_SPRITE
+OBJ_Y_SERYNGE = 5 * SIZE_SPRITE
