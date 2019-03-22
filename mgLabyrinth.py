@@ -86,6 +86,7 @@ def main():
 			# interaction
 			meet = interaction(maze, window)
 			meet.meet_item(hero, items)
+			window.blit(hero.mac, (hero.x, hero.y))
 			meet.meet_gardian(hero, items)
 			meetGuard = meet.meet_gardian(hero, items)
 			if meetGuard != None:
@@ -98,7 +99,7 @@ def main():
 							game = True
 							player_ready = False
 							init_window()
-			window.blit(hero.mac, (hero.x, hero.y))
+			
 			pygame.display.flip()
 if __name__ == "__main__":
     main()
