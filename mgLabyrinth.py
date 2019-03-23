@@ -21,22 +21,15 @@ def init_window():
     window.blit(start, (0, 0))
 
 def init_game():
-    # Init windows
     window = pygame.display.set_mode(AREA)
-    # Creation of Maze
     maze = Maze()
     maze.create_area()
     maze.generate_area(window)
-    # Items
     items = item()
     items.create_item(maze)
-    #items.inventory()
     items.generate_item(window)
-    # Creation of MacGyver
     hero = Macgyver(INIT_MAC_X, INIT_MAC_Y, MAC, maze)
-    # Update image
     hero.image_hero(MAC)
-    # Creation Guard
     guard = Guardian(GUARDIAN, maze)
     guard.generate_guardian(window)
 
@@ -108,5 +101,6 @@ def main():
 							init_window()
 			
 			pygame.display.flip()
+
 if __name__ == "__main__":
     main()

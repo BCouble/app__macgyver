@@ -23,7 +23,6 @@ class item:
     def create_item(self, matrix):
         """ create random position of items """
         self.matrix = matrix
-        #del self.obj[:]
         exist = []
         item = []
         for self.opu in self.item:
