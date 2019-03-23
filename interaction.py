@@ -14,7 +14,7 @@ class interaction():
         self.hero = hero
         self.item = item
         if hero.x == POS_GUARD and hero.y == POS_GUARD:
-            del self.obj.obj[:]
+            #del self.obj.obj[:]
             # inventory check
             if self.item.inventory == 3:
                 screen = WINNER

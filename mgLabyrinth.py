@@ -42,17 +42,41 @@ def init_game():
 
     return window, maze, items, hero, guard
 
+def move_player(hero):
+	for event in pygame.event.get():
+		if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+			game = False
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_DOWN:
+				hero.position('down')
+			if event.key == pygame.K_UP:
+				hero.position('up')
+			if event.key == pygame.K_LEFT:
+				hero.position('left')
+			if event.key == pygame.K_RIGHT:
+				hero.position('right')
+
+def rebuild_windows(maze, guard, items, window):
+	maze.generate_area(window)
+	guard.generate_guardian(window)
+	items.generate_item(window)
+	items.display_serynge(window)
+
+def management_interaction(maze, window, meet, hero, items, meetGuard):
+	meet.meet_item(hero, items)
+	window.blit(hero.mac, (hero.x, hero.y))
+	meet.meet_gardian(hero, items)
+
 def main():
 	""" running the game """
 	pygame.init()
-	# 1 on lance le jeu
 	init_window()
-	# pygame loop home 
+	""" pygame initialyse loop home """ 
 	game = True
 	player_ready = False
 	while game:
 		pygame.display.flip()
-		# speed management loop
+		""" speed management loop """
 		pygame.time.Clock().tick(30)
 		for event in pygame.event.get():
 			if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
@@ -62,33 +86,16 @@ def main():
 					player_ready = True
 					(window, maze, items, hero, guard) = init_game()
 
-		# 2 La partie démarre
+		""" Game loop """
 		while player_ready:
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					game = False
-				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_DOWN:
-						hero.position('down')
-					if event.key == pygame.K_UP:
-						hero.position('up')
-					if event.key == pygame.K_LEFT:
-						hero.position('left')
-					if event.key == pygame.K_RIGHT:
-						hero.position('right')
-			# Rebuild windows
-			maze.generate_area(window)
-			# Guard
-			guard.generate_guardian(window)
-			# update loot avec invmac
-			items.generate_item(window)
-			items.display_serynge(window)
-			# interaction
+			""" Move player """
+			move_player(hero)
+			""" Rebuild windows after move """
+			rebuild_windows(maze, guard, items, window)
+			""" Interaction """
 			meet = interaction(maze, window)
-			meet.meet_item(hero, items)
-			window.blit(hero.mac, (hero.x, hero.y))
-			meet.meet_gardian(hero, items)
 			meetGuard = meet.meet_gardian(hero, items)
+			management_interaction(maze, window, meet, hero, items, meetGuard)
 			if meetGuard != None:
 				meet.game_over(meetGuard)
 				for event in pygame.event.get():
