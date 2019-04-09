@@ -11,7 +11,7 @@ Installation et configuration de l’environnement virtuel avec pygame.
 Structure des fichiers et vue d’ensemble :
 L’application comprend sept fichiers « .py », un fichier csv pour la map et les fichiers des images.
 Pour les fichiers .py : 
--	Les cinq classes : maze.py, macgyver.py, item, gardian.py et interaction.py
+-	Les cinq classes : maze.py, macgyver.py, item.py, gardian.py et interaction.py
 -	Les constantes : constante.py
 -	Le fichier principal : mgLabyrinth.py
 -	La map : dans « assets/map/ » maze.csv
